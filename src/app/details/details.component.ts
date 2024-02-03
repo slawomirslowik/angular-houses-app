@@ -71,6 +71,7 @@ export class DetailsComponent {
 
   submitApplication() {
     this.housingService.submitApplication(
+        this.housingLocation?.id ?? -1,
       this.applyForm.value.firstName ?? '',
       this.applyForm.value.lastName ?? '',
       this.applyForm.value.email ?? ''

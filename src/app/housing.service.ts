@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { timestamp } from 'rxjs';
 import { HousingLocation } from './housinglocation';
 
 @Injectable({
@@ -22,8 +23,10 @@ export class HousingService {
     return (await data.json()) ?? {};
   }
 
-  async submitApplication(firstName: string, lastName: string, email: string) {
-    const newPerson = JSON.stringify({
+  async submitApplication(housingLocationId: number, firstName: string, lastName: string, email: string) {
+    const newApplication = JSON.stringify({
+        'appliedTime': new Date(),
+        'housingLocationId': housingLocationId,
         'firstName': firstName,
         'lastName': lastName,
         'email': email
@@ -33,9 +36,9 @@ export class HousingService {
         headers: {
            'Content-Type': 'application/json',
         },
-        body: newPerson })
+        body: newApplication })
     .then(response => response.json())
+    console.log('Received new application: ' + newApplication);
     return response;
-    console.log()  
   }
 }
